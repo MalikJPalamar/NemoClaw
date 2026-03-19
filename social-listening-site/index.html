@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Listening: Innovation & Disruption Intelligence | March 2026</title>
+  <style>
+    :root {
+      --bg: #0a0e17;
+      --surface: #131928;
+      --surface2: #1a2235;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --accent3: #ff6b6b;
+      --text: #e4e6f0;
+      --text-muted: #8892a8;
+      --border: #252d42;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0f1629 0%, #1a1040 50%, #0f1629 100%);
+      padding: 80px 24px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(108,99,255,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(0,212,170,0.06) 0%, transparent 50%);
+      animation: drift 20s ease-in-out infinite;
+    }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-2%, 1%); }
+    }
+    .hero * { position: relative; z-index: 1; }
+    .hero .label {
+      display: inline-block;
+      background: rgba(108,99,255,0.15);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, #c4c0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: 40px 24px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .tab:hover { border-color: var(--accent); color: var(--text); }
+    .tab.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .section { padding: 40px 0; }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .card p { color: var(--text-muted); font-size: 0.92rem; }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .tag-ai { background: rgba(108,99,255,0.15); color: var(--accent); }
+    .tag-green { background: rgba(0,212,170,0.15); color: var(--accent2); }
+    .tag-health { background: rgba(255,107,107,0.15); color: var(--accent3); }
+    .tag-fintech { background: rgba(255,183,77,0.15); color: #ffb74d; }
+    .tag-startup { background: rgba(77,182,255,0.15); color: #4db6ff; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card .desc { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th, td {
+      text-align: left;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    th {
+      background: var(--surface2);
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+    }
+    tr:last-child td { border-bottom: none; }
+    .priority-list { list-style: none; padding: 0; }
+    .priority-list li {
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.95rem;
+    }
+    .priority-list li .num {
+      background: var(--accent);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .priority-list li strong { color: var(--text); }
+    .priority-list li span { color: var(--text-muted); }
+    .implications-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+    .impl-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .impl-card h3 { margin-bottom: 16px; font-size: 1.05rem; }
+    .impl-card ul { list-style: none; padding: 0; }
+    .impl-card ul li {
+      padding: 8px 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .impl-card ul li:last-child { border-bottom: none; }
+    .impl-card ul li::before {
+      content: '→';
+      color: var(--accent2);
+      font-weight: 700;
+    }
+    .impl-card.threat ul li::before { content: '⚠'; color: var(--accent3); }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 600px) {
+      .grid, .stat-grid, .implications-grid { grid-template-columns: 1fr; }
+      .hero { padding: 50px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="label">Social Listening Report</div>
+    <h1>Innovation &amp; Disruption Intelligence</h1>
+    <p>Real-time analysis of AI signals, startup ecosystems, green tech, and healthcare innovation &mdash; March 12, 2026</p>
+  </div>
+
+  <div class="tabs container">
+    <div class="tab active" onclick="showTab('overview')">Overview</div>
+    <div class="tab" onclick="showTab('ai-signals')">AI Signals</div>
+    <div class="tab" onclick="showTab('startups')">Startups &amp; VC</div>
+    <div class="tab" onclick="showTab('greentech')">Green Tech</div>
+    <div class="tab" onclick="showTab('healthcare')">Healthcare</div>
+    <div class="tab" onclick="showTab('strategic')">Strategic Implications</div>
+  </div>
+
+  <div class="container">
+
+    <!-- OVERVIEW -->
+    <div id="overview" class="panel active">
+      <div class="section">
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="number">$110B</div>
+            <div class="desc">OpenAI Record Fundraise</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">$159B</div>
+            <div class="desc">Stripe Valuation (+74%)</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">~40</div>
+            <div class="desc">New Unicorns in 2026</div>
+          </div>
+          <div class="stat-card">
+            <div class="number">$20B</div>
+            <div class="desc">JPMorgan AI Spending</div>
+          </div>
+        </div>
+
+        <div class="section-title"><span class="dot" style="background:var(--accent)"></span>Executive Summary</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-ai">AI Signals</span>
+            <h3>Agentic AI Enters Core Business</h3>
+            <p>Significant momentum in agentic AI adoption, particularly in financial services and enterprise automation. AI agents are moving into core business workflows at JPMorgan, Mastercard, Manulife, and Citi.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-startup">Startups</span>
+            <h3>Record Valuations &amp; Mega Rounds</h3>
+            <p>Replit hit $9B valuation (up from $3B in 6 months), Stripe soared to $159B, and almost 40 new unicorns have been minted in 2026 so far. AI agents dominate startup funding.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-green">Green Tech</span>
+            <h3>Energy Infrastructure Revolution</h3>
+            <p>BYD's 5-minute flash charging batteries, TerraPower nuclear reactor approval, and Google's 1.9GW clean energy deal signal a major energy infrastructure transformation.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-health">Healthcare</span>
+            <h3>Brain-Computer Interfaces Surge</h3>
+            <p>Multiple startups racing to commercialize brain implants. OpenAI launched ChatGPT Health. Amazon released healthcare AI capabilities. Digital health gaining momentum globally.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI SIGNALS -->
+    <div id="ai-signals" class="panel">
+      <div class="section">
+        <div class="section-title"><span class="dot" style="background:var(--accent)"></span>AGI Timeline &amp; Major Lab Announcements</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-ai">OpenAI</span>
+            <h3>$110B Fundraise + Pentagon Talks</h3>
+            <p>Record-breaking fundraising round announced. Pentagon partnership discussions ongoing with potential $110B deal drawing scrutiny from regulators and public.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-ai">Anthropic</span>
+            <h3>Government Compliance Pressure</h3>
+            <p>Facing US government pressure regarding domestic surveillance and automated systems, with a Friday deadline for compliance discussions.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-ai">Google DeepMind</span>
+            <h3>Industrial Robotics AI</h3>
+            <p>Industrial robotics AI initiatives becoming official. Physical AI becoming a priority with simulation-driven approaches.</p>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent2)"></span>Enterprise Agentic AI Adoption</div>
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Development</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Manulife</strong></td><td>Moving AI agents into core financial workflows</td></tr>
+            <tr><td><strong>Mastercard</strong></td><td>Agent-led commerce demo in Singapore with DBS and UOB</td></tr>
+            <tr><td><strong>JPMorgan</strong></td><td>AI spending approaching $20B, expanding investments</td></tr>
+            <tr><td><strong>Citi</strong></td><td>Quiet rollout of 4,000-person internal AI program</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent3)"></span>Physical AI &amp; Robotics</div>
+        <div class="grid">
+          <div class="card">
+            <h3>Ai2: Simulation-Driven Physical AI</h3>
+            <p>Building physical AI with virtual simulation data, reducing the need for real-world training.</p>
+          </div>
+          <div class="card">
+            <h3>ABB: Factory Automation ROI</h3>
+            <p>Physical AI simulation boosts ROI for factory automation, proving the business case for industrial AI.</p>
+          </div>
+          <div class="card">
+            <h3>Hitachi: Industrial Expertise Play</h3>
+            <p>Betting on deep industrial expertise to win the physical AI race against pure-tech competitors.</p>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent)"></span>Market Disruption Signals</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-fintech">Banking</span>
+            <h3>Malaysia: First AI-Powered Bank</h3>
+            <p>Ryt Bank launches as the first AI-powered bank, signaling a new era of AI-native financial services.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-fintech">Payments</span>
+            <h3>Agentic Payments Paradigm</h3>
+            <p>Agentic payments emerging as a new commerce paradigm where AI agents handle transactions autonomously.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-ai">Marketing</span>
+            <h3>Coca-Cola Turns to AI</h3>
+            <p>Coca-Cola adopting AI marketing as traditional price-led growth strategies slow down.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STARTUPS -->
+    <div id="startups" class="panel">
+      <div class="section">
+        <div class="section-title"><span class="dot" style="background:var(--accent)"></span>Mega Rounds &amp; Unicorns</div>
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Valuation</th><th>Details</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Stripe</strong></td><td>$159B</td><td>Valuation soars 74%, reportedly eyeing PayPal acquisition</td></tr>
+            <tr><td><strong>Quince</strong></td><td>$10B</td><td>$500M round led by Iconiq</td></tr>
+            <tr><td><strong>Replit</strong></td><td>$9B</td><td>Up from $3B in just 6 months</td></tr>
+            <tr><td><strong>Plaid</strong></td><td>$8B</td><td>Employee share sale</td></tr>
+            <tr><td><strong>Legora</strong></td><td>$5.55B</td><td>AI legal tech booming</td></tr>
+            <tr><td><strong>Alan</strong></td><td>€5B</td><td>Health insurance startup</td></tr>
+            <tr><td><strong>Wonderful</strong></td><td>$2B</td><td>$150M Series B, enterprise AI</td></tr>
+            <tr><td><strong>Sunday (Humanoid)</strong></td><td>$1.15B</td><td>Humanoid robotics</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent2)"></span>AI Agent Ecosystem</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-ai">AI Agents</span>
+            <h3>Gumloop: $50M from Benchmark</h3>
+            <p>Turning every employee into an AI agent builder. Democratizing agentic AI for the enterprise.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-ai">AI Agents</span>
+            <h3>Lovable: $100M Revenue Added</h3>
+            <p>Added $100M in revenue last month alone with just 146 employees. Extreme capital efficiency.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-ai">AI Agents</span>
+            <h3>AgentMail: Email for AI Agents</h3>
+            <p>Raised $6M to build email infrastructure specifically designed for AI agents.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-ai">Acquisitions</span>
+            <h3>Major M&amp;A Activity</h3>
+            <p>Google acquired Wiz for $32B. Netflix paid $600M for Ben Affleck's AI startup. Zendesk acquired Forethought.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GREEN TECH -->
+    <div id="greentech" class="panel">
+      <div class="section">
+        <div class="section-title"><span class="dot" style="background:var(--accent2)"></span>Energy Infrastructure</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-green">Nuclear</span>
+            <h3>TerraPower Reactor Approved</h3>
+            <p>Bill Gates' TerraPower receives approval to build a new advanced nuclear reactor, a milestone for next-gen nuclear energy.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-green">Grid Tech</span>
+            <h3>Hyperscale Power Challenges Legacy</h3>
+            <p>Challenging 140-year-old transformer technology. Heron Power raised $140M for solid-state transformers.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-green">Clean Energy</span>
+            <h3>Google's 1.9GW Clean Energy Deal</h3>
+            <p>Massive clean energy deal includes 100-hour battery storage. SoftBank spending $33B on US gas power plant for AI.</p>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent2)"></span>EV &amp; Battery Innovation</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-green">Batteries</span>
+            <h3>BYD: 5-Minute Flash Charging</h3>
+            <p>Rolling out EV batteries with 5-minute flash charging capability, a game-changer for EV adoption.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-green">EVs</span>
+            <h3>Tesla Becomes UK Utility</h3>
+            <p>Tesla enters the UK energy market as a utility, setting up a showdown with Octopus Energy.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-green">Batteries</span>
+            <h3>Group14 &amp; Zeno</h3>
+            <p>Group14 opens battery materials factory. Zeno raises $25M for battery-swap motorbikes in emerging markets.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALTHCARE -->
+    <div id="healthcare" class="panel">
+      <div class="section">
+        <div class="section-title"><span class="dot" style="background:var(--accent3)"></span>Brain-Computer Interfaces</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-health">BCI</span>
+            <h3>Science Corp: $230M for Brain Implants</h3>
+            <p>Raised $230M to bring brain implant technology to market. The race to commercialize BCI is accelerating.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-health">BCI</span>
+            <h3>China's BCI Industry Racing Ahead</h3>
+            <p>Gestala raised $21M just two months after launch. China's brain-computer interface industry gaining momentum fast.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-health">BCI</span>
+            <h3>Zomato Founder's Brain-Monitoring Bet</h3>
+            <p>Deepinder Goyal returns with $54M investment in brain-monitoring technology.</p>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent3)"></span>Digital Health &amp; AI</div>
+        <div class="grid">
+          <div class="card">
+            <span class="tag tag-health">AI Health</span>
+            <h3>OpenAI: ChatGPT Health Launch</h3>
+            <p>OpenAI launches ChatGPT Health, partnering with b.well. A major move into healthcare AI by a leading lab.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-health">AI Health</span>
+            <h3>Amazon Healthcare AI</h3>
+            <p>Amazon One Medical releasing health AI capabilities. AWS launches AI agent platform specifically for healthcare.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-health">Digital Health</span>
+            <h3>Lotus Health: Free AI Doctor</h3>
+            <p>Nabbed $35M for an AI doctor that sees patients for free, making healthcare more accessible.</p>
+          </div>
+          <div class="card">
+            <span class="tag tag-health">Wearables</span>
+            <h3>Whoop &amp; Ultrahuman</h3>
+            <p>Whoop launches blood tests for women's health. Ultrahuman bets on redesigned smart ring for US market.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATEGIC -->
+    <div id="strategic" class="panel">
+      <div class="section">
+        <div class="section-title"><span class="dot" style="background:var(--accent)"></span>High Priority Signals</div>
+        <ol class="priority-list">
+          <li>
+            <span class="num">1</span>
+            <div><strong>Financial services leading agentic AI adoption</strong> <span>— JPMorgan, Mastercard, Manulife all deploying agents in core workflows</span></div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div><strong>Physical AI emerging as new frontier</strong> <span>— Industrial robotics and simulation gaining significant investment</span></div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div><strong>Healthcare AI entering mainstream</strong> <span>— OpenAI's health product launch is a pivotal moment for wellness tech</span></div>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <div><strong>Government/enterprise AI contracts at scale</strong> <span>— OpenAI's $110B Pentagon deal signals AI at government scale</span></div>
+          </li>
+        </ol>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent2)"></span>Opportunities &amp; Threats</div>
+        <div class="implications-grid">
+          <div class="impl-card">
+            <h3 style="color:var(--accent2)">Opportunities</h3>
+            <ul>
+              <li>AI wellness assistants — growing demand for AI-powered health companions</li>
+              <li>Biofeedback integration — BCI advances enable new neurofeedback products</li>
+              <li>Corporate wellness — AI agent platforms entering enterprise open B2B channels</li>
+              <li>Mental health tech — AI companions gaining acceptance normalizes wellness products</li>
+              <li>Wearable integration — partnership potential with Whoop, Ultrahuman</li>
+            </ul>
+          </div>
+          <div class="impl-card threat">
+            <h3 style="color:var(--accent3)">Threats</h3>
+            <ul>
+              <li>Big Tech entering wellness — Google, Amazon launching AI health assistants</li>
+              <li>Competition for attention — AI entertainment competing for wellness mindshare</li>
+              <li>Platform dependency — Algorithm changes could impact wellness app distribution</li>
+              <li>AI commoditization — Pricing pressure as AI capabilities become widespread</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:40px"><span class="dot" style="background:var(--accent)"></span>Watch List</div>
+        <div class="grid">
+          <div class="card">
+            <h3>AI Pricing &amp; Commoditization</h3>
+            <p>Pricing trends still emerging. UK sovereign AI fund signals government-backed compute infrastructure.</p>
+          </div>
+          <div class="card">
+            <h3>SaaS Displacement Timeline</h3>
+            <p>Traditional SaaS being augmented or replaced by AI-native solutions at an accelerating pace.</p>
+          </div>
+          <div class="card">
+            <h3>Healthcare AI Regulation</h3>
+            <p>Clinicians taking larger role in evaluating AI tools. Regulatory frameworks evolving rapidly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Social Listening Intelligence &mdash; Reports generated March 12, 2026</p>
+    <p style="margin-top:8px">Sources: TechCrunch, artificialintelligence-news.com, understandingai.org, mobihealthnews.com</p>
+  </footer>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
